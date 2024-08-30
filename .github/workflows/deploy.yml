@@ -1,38 +1,49 @@
-name: Build and deploy main
+name: Deploy
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   build:
-    name: Build and deploy main
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.1.5
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-      - name: Cache node modules
-        uses: actions/cache@v2
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+
+      - name: Build project
+        run: npm run build
+
+      - name: Upload production-ready build files
+        uses: actions/upload-artifact@v3
         with:
-          path: ~/node_modules
-          key: cache-${{ hashFiles('**/package-lock.json') }}
+          name: production-files
+          path: ./dist
 
-      # pass --base for application to work under GitHub pages
-      - name: Install and build
-        run: |
-          npm install
-          npm run build -- --base=/${{ github.event.repository.name }}/
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
 
-      - name: Deploy to github pages
-        uses: JamesIves/github-pages-deploy-action@4.1.0
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
         with:
-          branch: gh-pages
-          folder: dist
+          name: production-files
+          path: ./dist
 
-      - name: Publish deployed code 
-        uses: actions/upload-artifact@v2
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          name: published
-          path: dist
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
