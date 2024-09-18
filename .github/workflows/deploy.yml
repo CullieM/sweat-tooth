@@ -32,7 +32,7 @@ jobs:
           folder: dist
 
       - name: Publish deployed code 
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: published
           path: dist
