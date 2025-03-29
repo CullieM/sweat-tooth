@@ -20,7 +20,14 @@ for (let i = 1; i <= spotifySongIds.length; i++) {
 		</div>
 		<div id="padding"></div>`;
 }
-document.querySelector('#app').innerHTML = `<div>${songEmbedsHTML}</div>`;
+document.querySelector('#app').innerHTML = `
+<div>
+	<div class="header">
+		<img class="header-image" src="header.jpeg" />
+	</div>
+	<div id="padding"></div>
+	${songEmbedsHTML}
+</div>`;
 
 window.onSpotifyIframeApiReady = (IFrameAPI) => {
 	spotifySongIds.forEach(songId => {
@@ -32,6 +39,11 @@ window.onSpotifyIframeApiReady = (IFrameAPI) => {
 		};
 		let callbackFunc = (EmbedController) => {
 			let embedId = counter;
+			addEventListener('load', function () {
+				if (songId === '4FVEwchgZknBl3qjE2h4Y6?si=7b33a982c7de40d2') { // Autoplay high life
+					EmbedController.play();
+				}
+			});
 			EmbedController.addListener('playback_update', e => {
 				// Is playing but hasn't been recorded yet, mark as latest playing and record as playing
 				if (!e.data.isPaused && !playingEmbedIds.includes(embedId) && latestPlayedEmbed != embedId) {
