@@ -43,6 +43,14 @@ window.onSpotifyIframeApiReady = (IFrameAPI) => {
 					EmbedController.pause();
 					playingEmbedIds.splice(playingEmbedIds.indexOf(embedId), 1);
 				}
+				// Embed stops playing for whatever reason
+				if (e.data.isPaused && playingEmbedIds.includes(embedId)) {
+					playingEmbedIds.splice(playingEmbedIds.indexOf(embedId), 1);
+					// Reset latestPlayed if it's this one.
+					if (latestPlayedEmbed == embedId) {
+						latestPlayedEmbed = 0;
+					}
+				}
 			});
 		};
 		IFrameAPI.createController(embedDomElement, embedOptions, callbackFunc);
