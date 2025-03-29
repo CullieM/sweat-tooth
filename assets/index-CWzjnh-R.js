@@ -1,0 +1,8 @@
+(function(){const s=document.createElement("link").relList;if(s&&s.supports&&s.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))n(e);new MutationObserver(e=>{for(const t of e)if(t.type==="childList")for(const i of t.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&n(i)}).observe(document,{childList:!0,subtree:!0});function c(e){const t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?t.credentials="include":e.crossOrigin==="anonymous"?t.credentials="omit":t.credentials="same-origin",t}function n(e){if(e.ep)return;e.ep=!0;const t=c(e);fetch(e.href,t)}})();let f=["4FVEwchgZknBl3qjE2h4Y6?si=7b33a982c7de40d2","0jV5qFgT7QEJJPbPCuZtWP?si=c39a77e082124ce3","7nSoBBeqOvCSUeBpqYo2EU?si=AcHbMANJT7iQ5I-UEQ2LpQ"],u="",r=[],d=0,l=1;for(let o=1;o<=f.length;o++)u+=`<div class="embed-spotify-song">
+			<iframe class="spotify-iframe" id="embed${o}"
+						frameborder="0" 
+						allowtransparency="true" 
+						allow="encrypted-media">
+			</iframe>
+		</div>
+		<div id="padding"></div>`;document.querySelector("#app").innerHTML=`<div>${u}</div>`;window.onSpotifyIframeApiReady=o=>{f.forEach(s=>{let c=document.getElementById("embed"+l),n={uri:"spotify:track:"+s,width:"300",height:"80"},e=t=>{let i=l;t.addListener("playback_update",a=>{!a.data.isPaused&&!r.includes(i)&&d!=i&&(d=i,r.push(i)),d!=0&&r.includes(i)&&d!=i&&(t.pause(),r.splice(r.indexOf(i),1)),a.data.isPaused&&(r.splice(r.indexOf(i),1),d==i&&(d=0))})};o.createController(c,n,e),l++})};
