@@ -1,4 +1,6 @@
 # Sweat Tooth Website
-Site for up and coming artist Sweat Tooth
+Site for musician Sweat Tooth
 
 I made this because my friends released a song and I wanted to see how long it took me to make a site with it embedded.
+
+<img width="1240" alt="Website screenshot sample" src="https://github.com/user-attachments/assets/2b7afb0f-4c46-405b-9c4a-424b4aa2349c" />
