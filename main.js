@@ -12,18 +12,21 @@ let counter = 1;
 for (let i = 1; i <= spotifySongIds.length; i++) {
 	songEmbedsHTML +=
 		`<div class="embed-spotify-song">
-			<iframe class="spotify-iframe" id="embed${i}"
+			<iframe class="spotify-iframe" 
+						id="embed${i}"
 						frameborder="0" 
 						allowtransparency="true" 
-						allow="encrypted-media">
+						allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+						loading="lazy">
 			</iframe>
 		</div>
 		<div id="padding"></div>`;
 }
 document.querySelector('#app').innerHTML = `
 <div>
+	
 	<div class="header">
-		<img class="header-image" src="header.jpeg" />
+		<h1 class="title">SWEAT TOOTH</h1>
 	</div>
 	<div id="padding"></div>
 	${songEmbedsHTML}
