@@ -11,15 +11,14 @@ let counter = 1;
 
 for (let i = 1; i <= spotifySongIds.length; i++) {
 	songEmbedsHTML +=
-		`<div class="embed-spotify-song">
-			<iframe class="spotify-iframe" 
-						id="embed${i}"
-						frameborder="0" 
-						allowtransparency="true" 
-						allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-						loading="lazy">
-			</iframe>
-		</div>
+		`<iframe class="spotify-iframe" 
+					style="border-radius:12px"
+					id="embed${i}"
+					frameborder="0"
+					allowtransparency="true" 
+					allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+					loading="lazy">
+		</iframe>
 		<div id="padding"></div>`;
 }
 document.querySelector('#app').innerHTML = `
